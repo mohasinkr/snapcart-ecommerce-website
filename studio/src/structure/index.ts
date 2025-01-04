@@ -8,12 +8,16 @@ import pluralize from 'pluralize-esm'
  * Learn more: https://www.sanity.io/docs/structure-builder-introduction
  */
 
-const DISABLED_TYPES = ['settings', 'assist.instruction.context']
+const DISABLED_TYPES = ['homepage', 'settings', 'assist.instruction.context']
 
 export const structure: StructureResolver = (S: StructureBuilder) =>
   S.list()
     .title('Website Content')
     .items([
+      // Homepage Singleton in order to view/edit the one particular document for Homepage.
+      S.listItem()
+        .title('Homepage')
+        .child(S.document().schemaType('homepage').documentId('homepage')),
       ...S.documentTypeListItems()
         // Remove the "assist.instruction.context" and "settings" content  from the list of content types
         .filter((listItem: any) => !DISABLED_TYPES.includes(listItem.getId()))
@@ -22,7 +26,7 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
           return listItem.title(pluralize(listItem.getTitle() as string))
         }),
       S.divider(),
-      // Settings Singleton in order to view/edit the one particular document for Settings.  Learn more about Singletons: https://www.sanity.io/docs/create-a-link-to-a-single-edit-page-in-your-main-document-type-list
+      // Settings Singleton in order to view/edit the one particular document for Settings.
       S.listItem()
         .title('Site Settings')
         .child(S.document().schemaType('settings').documentId('siteSettings'))

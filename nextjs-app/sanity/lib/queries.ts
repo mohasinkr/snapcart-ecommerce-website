@@ -2,6 +2,19 @@ import { defineQuery } from "next-sanity";
 
 export const settingsQuery = defineQuery(`*[_type == "settings"][0]`);
 
+const homepageFields = /* groq */ `
+  "hero": {
+    hero_title,
+    hero_description,
+    image,
+  },
+  "features": features[]{
+    feature,
+    feature_description,
+    image,
+  },
+`;
+
 const postFields = /* groq */ `
   _id,
   "status": select(_originalId in path("drafts.**") => "draft", "published"),
@@ -49,6 +62,12 @@ const linkFields = /* groq */ `
         }
       }
 `;
+
+export const homepageQuery = defineQuery(`
+  *[_type == "homepage"][0]{
+    ${homepageFields}
+  }
+`);
 
 export const getPageQuery = defineQuery(`
   *[_type == 'page' && slug.current == $slug][0]{
