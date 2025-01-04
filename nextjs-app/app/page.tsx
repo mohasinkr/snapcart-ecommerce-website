@@ -1,9 +1,19 @@
-import ShopyByCategory from "@/components/homepage/shop-by-category";
+import Features from "@/components/homepage/Features";
+import Hero from "@/components/homepage/Hero";
+import FeaturedProducts from "@/components/homepage/FeaturedProducts";
+import ShopByCategory from "@/components/homepage/ShopByCategory";
+import TrendingSection from "@/components/homepage/TrendingSection";
+import BrandShowcase from "@/components/homepage/BrandShowcase";
 
-export default async function Page() {
+export default function Page() {
   return (
     <>
-      <ShopyByCategory />
+      <Hero />
+      <Features />
+      <FeaturedProducts />
+      <TrendingSection />
+      <ShopByCategory />
+      <BrandShowcase />
     </>
   );
 }

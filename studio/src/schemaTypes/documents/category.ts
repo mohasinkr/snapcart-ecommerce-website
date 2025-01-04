@@ -35,8 +35,8 @@ export const category = defineType({
       type: 'text',
     }),
     defineField({
-      name: 'logo',
-      title: 'Logo',
+      name: 'image',
+      title: 'Image',
       type: 'image',
     }),
   ],

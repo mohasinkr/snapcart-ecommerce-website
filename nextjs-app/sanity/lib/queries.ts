@@ -37,7 +37,7 @@ const categoryFields = /* groq */ `
  "name": name,
  "slug": slug.current,
  "description": description,
- "logo": logo,
+ "image": image,
 `;
 
 const linkFields = /* groq */ `
