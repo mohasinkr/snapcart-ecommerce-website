@@ -1,14 +1,14 @@
+import BrandShowcase from "@/components/homepage/BrandShowcase";
+import FeaturedProducts from "@/components/homepage/FeaturedProducts";
 import Features from "@/components/homepage/Features";
 import Hero from "@/components/homepage/Hero";
-import FeaturedProducts from "@/components/homepage/FeaturedProducts";
 import ShopByCategory from "@/components/homepage/ShopByCategory";
 import TrendingSection from "@/components/homepage/TrendingSection";
-import BrandShowcase from "@/components/homepage/BrandShowcase";
+import { Homepage, HomepageQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/live";
 import { homepageQuery } from "@/sanity/lib/queries";
 
 export default async function Page() {
-
   const { data: heroContent } = await sanityFetch({
     query: homepageQuery,
     stega: false,
@@ -16,7 +16,7 @@ export default async function Page() {
 
   return (
     <>
-      <Hero content={heroContent?.hero} />
+      <Hero content={heroContent?.hero as Homepage} />
       <Features />
       <FeaturedProducts />
       <TrendingSection />
