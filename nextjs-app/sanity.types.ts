@@ -531,6 +531,9 @@ export type SettingsQueryResult = {
     _type: "image";
   };
 } | null;
+// Variable: homepageQuery
+// Query: *[_type == "homepage"][0]{      "hero": {    hero_title,    hero_description,    image,  },  "features": features[]{    feature,    feature_description,    image,  },  }
+export type HomepageQueryResult = null;
 // Variable: getPageQuery
 // Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {        ...,          link {      ...,      _type == "link" => {        "page": page->slug.current,        "post": post->slug.current        }      },      }    },  }
 export type GetPageQueryResult = {
@@ -813,6 +816,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"settings\"][0]": SettingsQueryResult;
+    "\n  *[_type == \"homepage\"][0]{\n    \n  \"hero\": {\n    hero_title,\n    hero_description,\n    image,\n  },\n  \"features\": features[]{\n    feature,\n    feature_description,\n    image,\n  },\n\n  }\n": HomepageQueryResult;
     "\n  *[_type == 'page' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"callToAction\" => {\n        ...,\n        \n  link {\n      ...,\n      _type == \"link\" => {\n        \"page\": page->slug.current,\n        \"post\": post->slug.current\n        }\n      }\n,\n      }\n    },\n  }\n": GetPageQueryResult;
     "\n  *[_type == \"post\" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": AllPostsQueryResult;
     "\n  *[_type == \"category\" && defined(slug.current)] | order(name asc) {\n    \n _id,\n \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n \"name\": name,\n \"slug\": slug.current,\n \"description\": description,\n \"image\": image,\n\n  }\n": AllCategoriesQueryResult;

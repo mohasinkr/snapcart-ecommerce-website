@@ -15,6 +15,7 @@ import {
 } from "next-sanity";
 
 import ResolvedLink from "@/app/components/ResolvedLink";
+import Link from "next/link";
 
 export default function CustomPortableText({
   className,
@@ -29,7 +30,7 @@ export default function CustomPortableText({
         // Add an anchor to the h1
         <h1 className="group relative">
           {children}
-          <a
+          <Link
             href={`#${value?._key}`}
             className="absolute left-0 top-0 bottom-0 -ml-6 flex items-center opacity-0 group-hover:opacity-100 transition-opacity"
           >
@@ -47,7 +48,7 @@ export default function CustomPortableText({
                 d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
               />
             </svg>
-          </a>
+          </Link>
         </h1>
       ),
       h2: ({ children, value }) => {
@@ -55,7 +56,7 @@ export default function CustomPortableText({
         return (
           <h2 className="group relative">
             {children}
-            <a
+            <Link
               href={`#${value?._key}`}
               className="absolute left-0 top-0 bottom-0 -ml-6 flex items-center opacity-0 group-hover:opacity-100 transition-opacity"
             >
@@ -73,7 +74,7 @@ export default function CustomPortableText({
                   d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
                 />
               </svg>
-            </a>
+            </Link>
           </h2>
         );
       },

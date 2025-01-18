@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="bg-gray-50 border-gray-100 border-t">
@@ -7,17 +9,17 @@ export default function Footer() {
             Built with Sanity + Next.js.
           </h3>
           <div className="flex flex-col gap-3 items-center justify-center lg:w-1/2 lg:flex-row lg:pl-4">
-            <a
+            <Link
               href="https://github.com/sanity-io/sanity-template-nextjs-clean"
               className="rounded-full flex gap-2 items-center bg-black hover:bg-red-500 focus:bg-cyan-500 py-3 px-6 text-white transition-colors duration-200"
               target="_blank"
               rel="noopener noreferrer"
             >
               View on GitHub
-            </a>
-            <a href="https://nextjs.org/docs" className="mx-3 hover:underline">
+            </Link>
+            <Link href="https://nextjs.org/docs" className="mx-3 hover:underline">
               Read Next.js Documentation
-            </a>
+            </Link>
           </div>
         </div>
       </div>

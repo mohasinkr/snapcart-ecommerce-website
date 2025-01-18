@@ -1,9 +1,10 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function BrandCard({ brand }: any) {
   return (
-    <a
+    <Link
       href={brand.url}
       className="group relative flex flex-col items-center p-8 bg-white rounded-2xl hover:bg-gray-50 transition-all duration-300 border border-gray-100"
     >
@@ -22,6 +23,6 @@ export default function BrandCard({ brand }: any) {
           <ArrowUpRight className="h-5 w-5 text-gray-600" />
         </span>
       </div>
-    </a>
+    </Link>
   );
 }
