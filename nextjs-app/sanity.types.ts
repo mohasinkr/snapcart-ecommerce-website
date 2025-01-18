@@ -166,6 +166,23 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
+export type Features = {
+  _type: "features";
+  feature: string;
+  feature_description?: string;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
 export type Product = {
   _id: string;
   _type: "product";
@@ -174,6 +191,18 @@ export type Product = {
   _rev: string;
   name: string;
   slug: Slug;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  brand?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "brand";
+  };
   price: number;
   image: {
     asset?: {
@@ -186,11 +215,50 @@ export type Product = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  pageBuilder?: Array<{
-    _key: string;
-  } & CallToAction | {
-    _key: string;
-  } & InfoSection>;
+  tax?: number;
+};
+
+export type Category = {
+  _id: string;
+  _type: "category";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  description?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
+export type Brand = {
+  _id: string;
+  _type: "brand";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
 };
 
 export type Page = {
@@ -267,6 +335,30 @@ export type Slug = {
   _type: "slug";
   current: string;
   source?: string;
+};
+
+export type Homepage = {
+  _id: string;
+  _type: "homepage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  hero_title: string;
+  hero_description: string;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  features?: Array<{
+    _key: string;
+  } & Features>;
 };
 
 export type Settings = {
@@ -487,7 +579,7 @@ export type SanityAssistSchemaTypeField = {
   } & SanityAssistInstruction>;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | CallToAction | Link | InfoSection | BlockContent | Product | Page | Post | Person | Slug | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | CallToAction | Link | InfoSection | BlockContent | Features | Product | Category | Brand | Page | Post | Person | Slug | Homepage | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -533,7 +625,38 @@ export type SettingsQueryResult = {
 } | null;
 // Variable: homepageQuery
 // Query: *[_type == "homepage"][0]{      "hero": {    hero_title,    hero_description,    image,  },  "features": features[]{    feature,    feature_description,    image,  },  }
-export type HomepageQueryResult = null;
+export type HomepageQueryResult = {
+  hero: {
+    hero_title: string;
+    hero_description: string;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  };
+  features: Array<{
+    feature: string;
+    feature_description: string | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  }> | null;
+} | null;
 // Variable: getPageQuery
 // Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {        ...,          link {      ...,      _type == "link" => {        "page": page->slug.current,        "post": post->slug.current        }      },      }    },  }
 export type GetPageQueryResult = {
@@ -636,7 +759,24 @@ export type AllPostsQueryResult = Array<{
 }>;
 // Variable: allCategoriesQuery
 // Query: *[_type == "category" && defined(slug.current)] | order(name asc) {     _id, "status": select(_originalId in path("drafts.**") => "draft", "published"), "name": name, "slug": slug.current, "description": description, "image": image,  }
-export type AllCategoriesQueryResult = Array<never>;
+export type AllCategoriesQueryResult = Array<{
+  _id: string;
+  status: "draft" | "published";
+  name: string;
+  slug: string;
+  description: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+}>;
 // Variable: allProductsQuery
 // Query: *[_type == "product" && defined(slug.current)] | order(name asc) {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "name": name,  "slug": slug.current,  brand,  price,  image,  }
 export type AllProductsQueryResult = Array<{
@@ -644,7 +784,12 @@ export type AllProductsQueryResult = Array<{
   status: "draft" | "published";
   name: string;
   slug: string;
-  brand: null;
+  brand: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "brand";
+  } | null;
   price: number;
   image: {
     asset?: {
@@ -775,7 +920,12 @@ export type ProductQueryResult = {
   status: "draft" | "published";
   name: string;
   slug: string;
-  brand: null;
+  brand: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "brand";
+  } | null;
   price: number;
   image: {
     asset?: {
@@ -791,10 +941,45 @@ export type ProductQueryResult = {
 } | null;
 // Variable: brandQuery
 // Query: *[_type == "brand" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,        link {      ...,      _type == "link" => {        "page": page->slug.current,        "post": post->slug.current        }      }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "name": name,  "slug": slug.current,  logo,  }
-export type BrandQueryResult = null;
+export type BrandQueryResult = {
+  content: null;
+  _id: string;
+  status: "draft" | "published";
+  name: string;
+  slug: string;
+  logo: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+} | null;
 // Variable: categoryQuery
 // Query: *[_type == "category" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,        link {      ...,      _type == "link" => {        "page": page->slug.current,        "post": post->slug.current        }      }    }  },     _id, "status": select(_originalId in path("drafts.**") => "draft", "published"), "name": name, "slug": slug.current, "description": description, "image": image,  }
-export type CategoryQueryResult = null;
+export type CategoryQueryResult = {
+  content: null;
+  _id: string;
+  status: "draft" | "published";
+  name: string;
+  slug: string;
+  description: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+} | null;
 // Variable: postPagesSlugs
 // Query: *[_type == "post" && defined(slug.current)]  {"slug": slug.current}
 export type PostPagesSlugsResult = Array<{
