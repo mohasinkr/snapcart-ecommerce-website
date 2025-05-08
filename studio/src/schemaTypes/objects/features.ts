@@ -8,7 +8,7 @@ export const features = defineType({
   icon: StarIcon,
   fields: [
     defineField({
-      name: 'feature',
+      name: 'feature_title',
       title: 'Feature Heading',
       type: 'string',
       validation: (Rule) => Rule.required(),
@@ -19,7 +19,7 @@ export const features = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'image',
+      name: 'feature_icon',
       title: 'Feature Icon',
       type: 'image',
       validation: (Rule) => Rule.required(),

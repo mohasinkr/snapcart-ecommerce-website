@@ -1058,7 +1058,7 @@
             "value": "features"
           }
         },
-        "feature": {
+        "feature_title": {
           "type": "objectAttribute",
           "value": {
             "type": "string"
@@ -1072,7 +1072,7 @@
           },
           "optional": true
         },
-        "image": {
+        "feature_icon": {
           "type": "objectAttribute",
           "value": {
             "type": "object",

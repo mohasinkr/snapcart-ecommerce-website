@@ -168,9 +168,9 @@ export type BlockContent = Array<{
 
 export type Features = {
   _type: "features";
-  feature: string;
+  feature_title: string;
   feature_description?: string;
-  image: {
+  feature_icon: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -642,19 +642,9 @@ export type HomepageQueryResult = {
     };
   };
   features: Array<{
-    feature: string;
+    feature: null;
     feature_description: string | null;
-    image: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
+    image: null;
   }> | null;
 } | null;
 // Variable: getPageQuery
