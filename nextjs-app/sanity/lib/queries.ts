@@ -8,10 +8,13 @@ const homepageFields = /* groq */ `
     hero_description,
     image,
   },
-  "features": features[]{
+  "feature": feature[]{
     feature_title,
     feature_description,
     feature_icon,
+  },
+  "products": product[]{
+    ...product,
   },
 `;
 

@@ -21,8 +21,8 @@ export const feature = defineType({
     defineField({
       name: 'feature_icon',
       title: 'Feature Icon',
-      type: 'image',
-      validation: (Rule) => Rule.required(),
+      type: 'icon',
+      // validation: (Rule) => Rule.required(),
     }),
   ],
 });

@@ -25,6 +25,14 @@ export const homepage = defineType({
       type: 'image',
       validation: (Rule) => Rule.required(),
     }),
+    // dynamic array of product types
+    defineField({
+      name: 'product',
+      title: 'Products',
+      type: 'array',
+      of: [{type: 'reference', to: {type: 'product'}}],
+    }),
+
     // dynamic array of schema types
     defineField({
       name: 'feature',

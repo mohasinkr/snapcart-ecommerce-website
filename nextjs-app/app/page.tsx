@@ -10,7 +10,7 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { homepageQuery, allProductsQuery } from "@/sanity/lib/queries";
 
 export default async function Page() {
-  const [{ data: heroContent }, { data: products }] = await Promise.all([
+  const [{ data: homepageContent }, { data: products }] = await Promise.all([
     sanityFetch({
       query: homepageQuery,
       stega: false,
@@ -21,14 +21,16 @@ export default async function Page() {
     }),
   ]);
 
+  console.log(homepageContent)
+
   // Simulate best sellers by using the available products
   const bestSellerProducts = products || [];
 
   return (
     <>
-      <Hero content={heroContent?.hero as Homepage} />
+      <Hero content={homepageContent?.hero as Homepage} />
       <FeaturesListing
-        content={heroContent?.features as Homepage["features"]}
+        content={homepageContent?.feature as Homepage["feature"]}
       />
       <FeaturedProducts />
       <BestSellersSection products={bestSellerProducts} />
