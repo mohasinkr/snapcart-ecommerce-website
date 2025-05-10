@@ -7,14 +7,14 @@ import { draftMode } from "next/headers";
 import { VisualEditing, toPlainText } from "next-sanity";
 import { Toaster } from "sonner";
 
-import DraftModeToast from "@/app/components/DraftModeToast";
-import Footer from "@/app/components/Footer";
+import DraftModeToast from "@/components/common/DraftModeToast";
+import Footer from "@/components/common/Footer";
 import * as demo from "@/sanity/lib/demo";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import { handleError } from "./client-utils";
-import { Navbar } from "../components/ui/navbar"; 
+import { Navbar } from "../components/ui/navbar";
 
 /**
  * Generate metadata for the page.
@@ -54,9 +54,8 @@ export async function generateMetadata(): Promise<Metadata> {
 const lato = Lato({
   variable: "--font-lato",
   subsets: ["latin"],
-  weight:  ["100", "300", "400", "700", "900"],
+  weight: ["100", "300", "400", "700", "900"],
   display: "swap",
-
 });
 
 export default async function RootLayout({

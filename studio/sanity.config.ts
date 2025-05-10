@@ -47,10 +47,13 @@ function resolveHref(documentType?: string, slug?: string): string | undefined {
 // Main Sanity configuration
 export default defineConfig({
   name: 'default',
-  title: 'Clean Next.js + Sanity',
+  title: 'SnapCart Ecommerce',
 
   projectId,
   dataset,
+  // mediaLibrary: {
+  //   enabled: true,
+  // },
 
   plugins: [
     // Presentation tool configuration for Visual Editing

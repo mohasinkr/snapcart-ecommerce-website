@@ -14,7 +14,7 @@ import {
   type PortableTextBlock,
 } from "next-sanity";
 
-import ResolvedLink from "@/app/components/ResolvedLink";
+import ResolvedLink from "@/components/common/ResolvedLink";
 import Link from "next/link";
 
 export default function CustomPortableText({

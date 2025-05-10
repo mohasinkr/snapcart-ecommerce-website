@@ -1,8 +1,8 @@
 import {defineField, defineType} from 'sanity'
 import {StarIcon} from '@sanity/icons'
 
-export const features = defineType({
-  name: 'features',
+export const feature = defineType({
+  name: 'feature',
   title: 'Features',
   type: 'object',
   icon: StarIcon,

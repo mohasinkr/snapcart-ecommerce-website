@@ -9,9 +9,9 @@ const homepageFields = /* groq */ `
     image,
   },
   "features": features[]{
-    feature,
+    feature_title,
     feature_description,
-    image,
+    feature_icon,
   },
 `;
 

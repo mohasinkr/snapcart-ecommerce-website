@@ -1,7 +1,7 @@
 import React from "react";
 
-import Cta from "@/app/components/Cta";
-import Info from "@/app/components/InfoSection";
+import Cta from "@/components/common/Cta";
+import Info from "@/components/common/InfoSection";
 import { dataAttr } from "@/sanity/lib/utils";
 
 type BlocksType = {
@@ -60,6 +60,6 @@ export default function BlockRenderer({
         A &ldquo;{block._type}&rdquo; block hasn&apos;t been created
       </div>
     ),
-    { key: block._key },
+    { key: block._key }
   );
 }

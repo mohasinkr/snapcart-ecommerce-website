@@ -4,7 +4,7 @@ import { SanityDocument } from "next-sanity";
 import { useOptimistic } from "next-sanity/hooks";
 import Link from "next/link";
 
-import BlockRenderer from "@/app/components/BlockRenderer";
+import BlockRenderer from "@/components/common/BlockRenderer";
 import { Page } from "@/sanity.types";
 import { dataAttr } from "@/sanity/lib/utils";
 import { studioUrl } from "@/sanity/lib/api";
@@ -91,7 +91,7 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
       // Reconcile References. https://www.sanity.io/docs/enabling-drag-and-drop#ffe728eea8c1
       return action.document.pageBuilder.map(
         (section) =>
-          currentSections?.find((s) => s._key === section?._key) || section,
+          currentSections?.find((s) => s._key === section?._key) || section
       );
     }
 

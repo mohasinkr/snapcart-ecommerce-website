@@ -17,41 +17,65 @@ import {
 import { Heart, SearchIcon, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const components: { title: string; href: string; description: string }[] = [
+const categories: { title: string; href: string; description: string }[] = [
   {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
+    title: "Men's Clothing",
+    href: "/category/mens",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Explore our collection of men's apparel including shirts, pants, jackets and accessories.",
   },
   {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
+    title: "Women's Clothing",
+    href: "/category/womens",
     description:
-      "For sighted users to preview content available behind a link.",
+      "Discover the latest trends in women's fashion from casual wear to elegant dresses.",
   },
   {
-    title: "Progress",
-    href: "/docs/primitives/progress",
+    title: "Accessories",
+    href: "/category/accessories",
     description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+      "Complete your look with our range of accessories including bags, jewelry, and more.",
   },
   {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
+    title: "Footwear",
+    href: "/category/footwear",
+    description:
+      "Step out in style with our selection of shoes for all occasions.",
   },
   {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
+    title: "New Arrivals",
+    href: "/new-arrivals",
     description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+      "Be the first to shop our latest products and collections fresh off the runway.",
   },
   {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
+    title: "Sale",
+    href: "/sale",
     description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+      "Great deals on fashion items with discounts up to 70% off original prices.",
+  },
+];
+
+const featuredCollections: {
+  title: string;
+  href: string;
+  description: string;
+}[] = [
+  {
+    title: "Summer Collection",
+    href: "/collections/summer",
+    description: "Light and breathable pieces perfect for the warm season.",
+  },
+  {
+    title: "Winter Essentials",
+    href: "/collections/winter",
+    description: "Stay warm and stylish with our cold-weather favorites.",
+  },
+  {
+    title: "Sustainable Fashion",
+    href: "/collections/sustainable",
+    description:
+      "Eco-friendly clothing made with sustainable materials and practices.",
   },
 ];
 
@@ -63,7 +87,7 @@ export function Navbar() {
           SnapCart
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Shop</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px]">
               <li className="row-span-3">
@@ -72,70 +96,86 @@ export function Navbar() {
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
-                    {/* <Icons.logo className="h-6 w-6" /> */}
                     <div className="mb-2 mt-4 text-lg font-medium">
-                      shadcn/ui
+                      SnapCart Store
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
-                      Beautifully designed components built with Radix UI and
-                      Tailwind CSS.
+                      Discover the latest fashion trends and shop our curated
+                      collections.
                     </p>
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="Introduction">
-                Re-usable components built using Radix UI and Tailwind CSS.
+              <ListItem href="/new-arrivals" title="New Arrivals">
+                The latest additions to our store - fresh styles updated weekly.
               </ListItem>
-              <ListItem href="/docs/installation" title="Installation">
-                How to install dependencies and structure your app.
+              <ListItem href="/bestsellers" title="Best Sellers">
+                Our most popular items loved by customers worldwide.
               </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Typography">
-                Styles for headings, paragraphs, lists...etc
+              <ListItem href="/sale" title="Sale">
+                Great deals on fashion items with discounts up to 70% off.
               </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
+              {categories.map((category) => (
                 <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
+                  key={category.title}
+                  title={category.title}
+                  href={category.href}
                 >
-                  {component.description}
+                  {category.description}
                 </ListItem>
               ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
+          <NavigationMenuTrigger>Collections</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-1 lg:w-[600px] ">
+              {featuredCollections.map((collection) => (
+                <ListItem
+                  key={collection.title}
+                  title={collection.title}
+                  href={collection.href}
+                >
+                  {collection.description}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/about" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Documentation
+              About Us
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <div className="space-x-2 flex">
           <NavigationMenuItem>
-            <Button variant={"ghost"}>
+            <Button variant={"ghost"} aria-label="Search">
               <SearchIcon className="h-5 w-5" />
             </Button>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Button variant={"ghost"}>
-              <Heart className="h-5 w-5" />
+            <Button variant={"ghost"} aria-label="Wishlist">
+              <Link href="/wishlist">
+                <Heart className="h-5 w-5" />
+              </Link>
             </Button>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Button variant={"ghost"}>
-              <ShoppingBag className="h-5 w-5" />
+            <Button variant={"ghost"} aria-label="Shopping Cart">
+              <Link href="/cart">
+                <ShoppingBag className="h-5 w-5" />
+              </Link>
             </Button>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Button>Login</Button>
           </NavigationMenuItem>
         </div>
       </NavigationMenuList>

@@ -1,10 +1,15 @@
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
+import { Metadata } from "next";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
-import CoverImage from "@/app/components/CoverImage";
-import { MorePosts } from "@/app/components/Posts";
+import { Button } from "@/components/ui/button";
 import { sanityFetch } from "@/sanity/lib/live";
-import { productPagesSlugs, productQuery } from "@/sanity/lib/queries";
+import { productPagesSlugs, productQuery, allProductsQuery } from "@/sanity/lib/queries";
+import ProductImageGallery from "@/components/product/ProductImageGallery";
+import ProductDetails from "@/components/product/ProductDetails";
+import ProductTabs from "@/components/product/ProductTabs";
+import RelatedProducts from "@/components/product/RelatedProducts";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -55,10 +60,30 @@ export async function generateStaticParams() {
 //   } satisfies Metadata;
 // }
 
-export default async function PostPage(props: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { data: product } = await sanityFetch({
+    query: productQuery,
+    params: await params,
+    stega: false,
+  });
+
+  if (!product) {
+    return {
+      title: "Product Not Found",
+    };
+  }
+
+  return {
+    title: `${product.name} | SnapCart`,
+    description: `Shop ${product.name} and more at SnapCart.`,
+  };
+}
+
+export default async function ProductPage(props: Props) {
   const params = await props.params;
-  const [{ data: product }] = await Promise.all([
+  const [{ data: product }, { data: allProducts }] = await Promise.all([
     sanityFetch({ query: productQuery, params }),
+    sanityFetch({ query: allProductsQuery }),
   ]);
 
   if (!product?._id) {
@@ -67,43 +92,44 @@ export default async function PostPage(props: Props) {
 
   return (
     <>
-      <div className="">
-        <div className="container my-12 lg:my-24 grid gap-12">
+      <div className="container mx-auto py-12">
+        {/* Breadcrumb navigation */}
+        <div className="mb-8">
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/shop" className="flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Back to Shop
+            </Link>
+          </Button>
+        </div>
+
+        {/* Product main section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+          {/* Product images */}
           <div>
-            <div className="pb-6 grid gap-6 mb-6 border-b border-gray-100">
-              <div className="max-w-3xl flex flex-col gap-6">
-                <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-7xl">
-                  {product.name}
-                </h2>
-              </div>
-              {/* <div className="max-w-3xl flex gap-4 items-center">
-                {product.author &&
-                  product.author.firstName &&
-                  product.author.lastName && (
-                    <Avatar person={product.author} date={product.date} />
-                  )}
-              </div> */}
-            </div>
-            <article className="gap-6 grid max-w-4xl">
-              <div className="">
-                <CoverImage image={product.image} priority />
-              </div>
-              {/* {product.content?.length && (
-                <PortableText
-                  className="max-w-2xl"
-                  value={product.content as PortableTextBlock[]}
-                />
-              )} */}
-              <h1>{product.price}</h1>
-            </article>
+            <ProductImageGallery
+              mainImage={product.image}
+              productName={product.name}
+            />
+          </div>
+
+          {/* Product details */}
+          <div>
+            <ProductDetails product={product} />
           </div>
         </div>
-      </div>
-      <div className="border-t border-gray-100">
-        <div className="container my-12 lg:my-24 grid gap-12">
-          <aside>
-            <Suspense>{await MorePosts({ skip: product._id, limit: 2 })}</Suspense>
-          </aside>
+
+        {/* Product tabs (description, specs, reviews) */}
+        <div className="mb-16">
+          <ProductTabs product={product} />
+        </div>
+
+        {/* Related products */}
+        <div className="border-t border-gray-200 pt-16">
+          <RelatedProducts
+            products={allProducts || []}
+            currentProductId={product._id}
+          />
         </div>
       </div>
     </>

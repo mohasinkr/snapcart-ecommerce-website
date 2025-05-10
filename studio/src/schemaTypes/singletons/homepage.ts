@@ -27,10 +27,10 @@ export const homepage = defineType({
     }),
     // dynamic array of schema types
     defineField({
-      name: 'features',
-      title: 'Features',
+      name: 'feature',
+      title: 'Feature',
       type: 'array',
-      of: [{type: 'features'}],
+      of: [{type: 'feature'}],
     }),
   ],
 })

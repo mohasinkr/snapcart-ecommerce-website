@@ -10,7 +10,7 @@ import { product } from './documents/product'
 import { brand } from './documents/brand'
 import { category } from './documents/category'
 import { homepage } from './singletons/homepage'
-import { features } from './objects/features'
+import { feature } from './objects/feature'
 
 // Export an array of all the schema types.  This is used in the Sanity Studio configuration. https://www.sanity.io/docs/schema-types
 
@@ -26,7 +26,7 @@ export const schemaTypes = [
   category,
   person,
   // Objects
-  features,
+  feature,
   blockContent,
   infoSection,
   callToAction,
