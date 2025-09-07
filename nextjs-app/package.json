@@ -31,7 +31,7 @@
     "postcss": "^8.4.49",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sanity": "^3.65.0",
+    "sanity": "^4.6.1",
     "sonner": "^1.7.0",
     "styled-components": "^6.1.13",
     "tailwind-merge": "^2.6.0",
